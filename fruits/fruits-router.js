@@ -1,13 +1,15 @@
 const express = require('express');
 const knex = require('knex');
 
-const db = knex({
-  client: 'sqlite3',
-  connection: {
-    filename: './data/produce.db3'
-  },
-  useNullAsDefault: true
-});
+const db = require('../data/dbConfig')
+
+// const db = knex({
+//   client: 'sqlite3',
+//   connection: {
+//     filename: './data/produce.db3'
+//   },
+//   useNullAsDefault: true
+// });
 
 const router = express.Router();
 
@@ -47,5 +49,19 @@ router.post('/', (req, res) => {
     res.status(500).json({ message: "Failed to store data" });
   });
 });
+
+// router.post("/", async (req, res, next) => {
+//   try {
+//       const payload = {
+//           title: req.body.title,
+//           contents: req.body.contents,
+//       }
+//   const [id] = await db('posts').insert(payload)
+//   res.json(await db('posts').where('id', id).first())
+//   } catch (err) {
+//       next(err)
+//   }
+// })
+
 
 module.exports = router;
